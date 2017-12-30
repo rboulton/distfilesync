@@ -4,12 +4,34 @@
   "description": "File Server part of FileSync",
   "main": "index.js",
   "scripts": {
+    "precommit": "lint-staged",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
-  "repository": "https://github.com/rboulton/distfilesync",
+  "lint-staged": {
+    "*.js": [
+      "standard --fix",
+      "git add"
+    ]
+  },
+  "author": "Richard Boulton",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rboulton/distfilesync.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "bugs": {
+    "url": "https://github.com/rboulton/distfilesync/issues"
+  },
   "dependencies": {
     "automerge": "^0.6.0"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.0",
+    "mocha": "^4.1.0",
+    "standard": "^10.0.3"
   }
 }
