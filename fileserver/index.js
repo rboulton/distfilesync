@@ -1,39 +1,16 @@
-const { Store } = require('./store')
-const { Api } = require('./api')
-
-function run (store, api) {
-  api.serve()
-}
-
-async function gracefulShutdown (store, api) {
-  console.log('Shutting down')
-  try {
-    await api.end()
-    await store.end()
-  } catch (err) {
-    console.log('Error when shutting down: ' + err)
-  }
-}
+const {Store} = require('./store');
+const {Api} = require('./api');
 
 (async () => {
-  const store = new Store()
-  const api = new Api(store)
+  const store = new Store();
+  const api = new Api(store);
+  console.log('Initialising...');
 
-  try {
-    await store.init()
-    await api.init()
-  } catch (err) {
-    console.log('Failed to start up: ' + err)
-    process.exitCode = 1
-    try {
-      await gracefulShutdown(store, api)
-    } catch (err) {
-      console.log('Unable to shut down cleanly: ' + err)
-      process.exit(1)
-    }
-  }
+  await store.init();
+  await api.init();
 
-  run(store, api)
+  console.log('Running...');
+  api.run();
 })().catch(err => {
-  console.log(err)
-})
+  console.log(err);
+});
