@@ -30,7 +30,7 @@ class Api {
       '/api/filearea/',
       async (req, res) => {
         try {
-          const fileareas = await this.store.query('file_areas_list');
+          const fileareas = await this.store.query('fileAreasList');
           console.log('Fileareas', fileareas);
           res.json({fileareas});
         } catch (err) {
@@ -47,10 +47,10 @@ class Api {
         console.log('Creating filearea', name, uuid);
         let id;
         try {
-          id = await this.store.query('file_area_create', [uuid, name]);
+          id = await this.store.query('fileAreaCreate', [uuid, name]);
         } catch (err) {
           try {
-            id = await this.store.query('file_area_get', [name]);
+            id = await this.store.query('fileAreaGet', [name]);
           } catch (getErr) {
             console.log('Unable to create file area, or get existing one', getErr);
             this.uncaughtError(err, res);
